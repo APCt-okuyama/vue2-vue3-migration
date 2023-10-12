@@ -31,6 +31,30 @@ element-ui
 class-style component
 ```
 
+## sample1 (class component)
+
+利用できるけど微妙かも
+
+```
+<script lang="ts">
+//import { Prop } from 'vue-property-decorator';
+import { Options, Vue } from 'vue-class-component';
+@Options({
+  props: {
+    msg: String
+  }
+})
+export default class HelloWorld extends Vue {
+  //@Prop() private msg!: string;
+  private msg!: string;
+}
+</script>
+```
+
+## sample2 (vue3 + class component)
+
+## sample3 (element ui)
+
 ## PJ で利用している package.json
 
 ```
