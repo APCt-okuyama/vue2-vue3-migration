@@ -87,6 +87,32 @@ export default class HelloWorld extends Vue {
 ※他にもツールがありそうなので調査する
 ※小さなファイルからひとつずつ変換するのが良さそう　 Top.vue など大きなファイルは厳しい。
 
+## sample5 vite
+
+@vitejs/plugin-vue2 は only works with Vue@^2.7.0. なので断念。。。
+
+## sample6 vite
+
+[参考 URL](https://vueschool.io/articles/vuejs-tutorials/how-to-migrate-from-vue-cli-to-vite/)
+
+vue2+vite にできるけど、vue3 にしてから変更した方がよさそう
+
+## sample7 vite で新規のプロジェクトを作成する
+
+```
+npm create vite@latest
+```
+
+```
+npm init vite@latest vue3-vite-2nd-project -- --template vue-ts
+```
+
+## sample8 vue router
+
+[参考 URL](https://router.vuejs.org/guide/migration/)
+
+## sample9 vuex
+
 ## PJ で利用している package.json
 
 ```json
@@ -202,43 +228,43 @@ vue-class-component vue3 でも利用可能？おすすめされていない※�
   "main": "background.js",
   "dependencies": {
     "@microsoft/applicationinsights-web": "^3.0.2",
-    "@types/file-saver": "^2.0.5",
+    "@types/file-saver": "^2.0.5", // 利用してないので削除
     "axios": "^0.21.4",
     "axios-retry": "^3.3.1",
-    "core-js": "^3.6.5", //3.33.0
+    "core-js": "^3.6.5", //3.33.0　※viteにしたらbabelが不要になるので削除できるっぽい
     "element-ui": "^2.14.1", //element plus
     "fabric": "^5.3.0",
     "hooper": "^0.3.4",
-    "html2canvas": "^1.4.1", //利用してないので削除
-    "node-rsa": "^1.1.1",
-    "pdfmake": "^0.2.7",
+    "html2canvas": "^1.4.1", // 利用してないので削除
+    "node-rsa": "^1.1.1", // そのままでOK
+    "pdfmake": "^0.2.7", // そのままでOK
     "vue": "^2.6.11",　//3に上げる
     "vue-application-insights": "^1.0.7",
     "vue-class-component": "^7.2.3", //vue3で利用するためにには "^8.0.0-0"
     "vue-i18n": "^8.28.2",
     "vue-property-decorator": "^8.4.2", //vue3で利用するためにには "^10.0.0-rc.3"
     "vue-router": "^3.2.0", //Vue Router 4
-    "vue2-touch-events": "^3.2.2", //vue3-touch-eventsに変更
-    "vuedraggable": "^2.24.3", //vue.draggable.next
-    "vuex": "^3.4.0", //Vuex 4に変更
-    "vuex-persistedstate": "^4.0.0-beta.3",
-    "vuex-smart-module": "^0.4.6"
+    "vue2-touch-events": "^3.2.2", //vue3-touch-events に変更
+    "vuedraggable": "^2.24.3", //vue.draggable.next に変更
+    "vuex": "^3.4.0", // Vuex 4に変更
+    "vuex-persistedstate": "^4.0.0-beta.3", // vuex4に対応したブランチに変更
+    "vuex-smart-module": "^0.4.6" // vuex4に対応したブランチに変更
   },
   "devDependencies": {
     "@types/fabric": "^5.3.3",
-    "@types/html2canvas": "^1.0.0",
-    "@types/jest": "^24.0.19",
+    "@types/html2canvas": "^1.0.0",//不要
+    "@types/jest": "^24.0.19", //使ってないから一旦削除する？
     "@types/node-rsa": "^1.1.1",
     "@types/pdfmake": "^0.2.2",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-plugin-router": "~4.5.0",
-    "@vue/cli-plugin-typescript": "~4.5.0",
-    "@vue/cli-plugin-unit-jest": "~4.5.0",
-    "@vue/cli-plugin-vuex": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
+    "@vue/cli-plugin-babel": "~4.5.0",//viteにするなら削除
+    "@vue/cli-plugin-eslint": "~4.5.0",//viteにするなら削除
+    "@vue/cli-plugin-router": "~4.5.0",//viteにするなら削除
+    "@vue/cli-plugin-typescript": "~4.5.0",//viteにするなら削除
+    "@vue/cli-plugin-unit-jest": "~4.5.0",//viteにするなら削除
+    "@vue/cli-plugin-vuex": "~4.5.0",//viteにするなら削除
+    "@vue/cli-service": "~4.5.0",//viteにするなら削除
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "^5.0.2",
     "@vue/test-utils": "^1.0.3",
@@ -248,9 +274,9 @@ vue-class-component vue3 でも利用可能？おすすめされていない※�
     "lint-staged": "^9.5.0",
     "node-sass": "^8.0.0",
     "prettier": "^1.19.1",
-    "sass-loader": "^10.2.1",
-    "typescript": "~3.9.3",
-    "vue-template-compiler": "^2.6.11"
+    "sass-loader": "^10.2.1", //viteにするなら削除
+    "typescript": "~3.9.3", //これも上げる？
+    "vue-template-compiler": "^2.6.11"// vue3にするときに削除
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
