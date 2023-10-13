@@ -113,6 +113,8 @@ npm init vite@latest vue3-vite-2nd-project -- --template vue-ts
 
 ## sample9 vuex
 
+Breaking Changes
+
 ## PJ で利用している package.json
 
 ```json
