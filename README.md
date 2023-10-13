@@ -1,5 +1,8 @@
 # vue2 から vue3 へのマイグレーション調査
 
+対象は vue ファイル数:73 (34694 line)
+利用ライブラリ数: 22 + 26
+
 ## 参照情報
 
 [Vue 3 以降ガイド(公式)](https://v3-migration.vuejs.org/ja/)
@@ -45,13 +48,16 @@ class-style component
 
 ## sample1 (class component)
 
-利用できるけど微妙かも修正箇所が多くなる
-vue-property-decorator,vue-class-component はすでにメンテナンスモード
+利用できるけど微妙かも修正箇所は多い
+※vue-property-decorator,vue-class-component はすでにメンテナンスモード
 
-```
+```json
+package.json
     "vue-class-component": "^8.0.0-0",
     "vue-property-decorator": "^10.0.0-rc.3"
+```
 
+```typescript
 <script lang="ts">
 //import { Prop } from 'vue-property-decorator';
 import { Options, Vue } from 'vue-class-component';
@@ -73,18 +79,16 @@ export default class HelloWorld extends Vue {
 
 ## sample3 (element ui)
 
+## sample4 (sample4-vue3-composition)
+
+[これ](https://vue-composition-converter.vercel.app/) で composition 形式 に変換できる
+※手動で手直しは必要だと思う
+※他にもツールがありそうなので調査する
+※小さなファイルからひとつずつ変換するのが良さそう　 Top.vue など大きなファイルは厳しい。
+
 ## PJ で利用している package.json
 
-vue ファイル数:73
-
-```
-$ find src -name "*.vue" | grep -c "\.vue$"
-73
-```
-
-ライブラリ数: 22 + 26
-
-```
+```json
 {
   "name": "specta-kytool-client",
   "version": "2.6.0",
@@ -113,10 +117,10 @@ $ find src -name "*.vue" | grep -c "\.vue$"
 ★　 "vue-class-component": "^7.2.3",※どうする。。。
     "vue-i18n": "^8.28.2",　※9.5.0があります
 ★　 "vue-property-decorator": "^8.4.2",※どうする。。。
-    "vue-router": "^3.2.0",　※4.2.5へ上げる
+★   "vue-router": "^3.2.0",　※4.2.5へ上げる
     "vue2-touch-events": "^3.2.2", ※vue3-touch-eventsに変更する
     "vuedraggable": "^2.24.3",※vue3のものに変更する
-    "vuex": "^3.4.0",※vue3のものに変更する
+★    "vuex": "^3.4.0",※vue3のものに変更する pinia
     "vuex-persistedstate": "^4.0.0-beta.3",※vuex-persistedstate　3.x.xブランチに
     "vuex-smart-module": "^0.4.6"　※0.6.2 がsupport vue3となっている
   },
@@ -158,4 +162,177 @@ $ find src -name "*.vue" | grep -c "\.vue$"
     ]
   }
 }
+```
+
+## 対象ファイルの確認
+
+vue ファイル数:73
+
+```
+$ find src -name "*.vue" | grep -c "\.vue$"
+73
+```
+
+各ファイルの行数
+
+```
+$ find src -name "*.vue" | grep "\.vue$" | xargs wc -l
+:
+34694 total
+```
+
+ライブラリ数: 22 + 26
+
+## リファクタ検討
+
+現在の状態の説明
+
+```
+$ tree -L 3 src
+src
+├── @types
+│   └── type.d.ts
+├── App.vue
+├── assets
+│   ├── app.ico
+│   ├── clickme.png
+│   ├── docs
+│   │   └── sample_terms_of_service.pdf
+│   ├── icon
+│   │   ├── counterplan.png
+│   │   ├── disasterType.png
+│   │   ├── filter.png
+│   │   ├── money_black.png
+│   │   ├── money_white.png
+│   │   ├── occupation.png
+│   │   ├── risk.png
+│   │   ├── score.png
+│   │   ├── search_black.png
+│   │   ├── search_white.png
+│   │   ├── serious.png
+│   │   ├── source.png
+│   │   └── workType.png
+│   ├── json
+│   │   ├── SourceCompany.json
+│   │   └── TagProperty.json
+│   ├── logo.png
+│   └── menu.png
+├── components
+│   ├── Footer.vue
+│   ├── Header.vue
+│   ├── ImageCarousel.vue
+│   ├── ImageEnlarge.vue
+│   ├── ImageViewer.vue
+│   ├── ListCalendar.vue
+│   ├── TopDisasterCase.vue
+│   ├── TopRecommend.vue
+│   ├── TopRiskCase.vue
+│   ├── dialog
+│   │   ├── DisasterFileUploadOne.vue
+│   │   ├── DisasterImageUpload.vue
+│   │   ├── DisasterUserView.vue
+│   │   ├── DocumentConfigItem.vue
+│   │   ├── DocumentConfigView.vue
+│   │   ├── ListDetail.vue
+│   │   ├── OriginalDocViewer.vue
+│   │   ├── TermsOfService.vue
+│   │   ├── TopDetail.vue
+│   │   ├── TopSave.vue
+│   │   ├── TopSearchFilter.vue
+│   │   ├── TopSearchFilterConfig.ts
+│   │   ├── UserAccessData.vue
+│   │   ├── UserAdd.vue
+│   │   ├── UserEdit.vue
+│   │   ├── UserEditPInfo.vue
+│   │   ├── UserLicense.vue
+│   │   ├── UserPartnerCompany.vue
+│   │   ├── UserPassword.vue
+│   │   ├── UserProject.vue
+│   │   └── UserRemove.vue
+│   ├── disaster
+│   │   ├── Config.ts
+│   │   ├── DisasterPDFPrint.vue
+│   │   ├── DisasterPDFPrintDialog.vue
+│   │   ├── TableHeader.vue
+│   │   └── TableMultiItem.vue
+│   ├── ds
+│   │   ├── Disaster.vue
+│   │   ├── KYSheets.vue
+│   │   ├── Player.vue
+│   │   └── Setup.vue
+│   ├── ky
+│   │   ├── Admin.vue
+│   │   ├── KYSheetHeader.vue
+│   │   ├── KYSheetWeatherInfo.vue
+│   │   └── UserView.vue
+│   └── parts
+│       ├── DocumentTypeSelect.vue
+│       ├── HandwritingSignature.vue
+│       ├── KYSheetInstructionGuide.vue
+│       ├── KYSheetUsageGuide.vue
+│       └── SpeechInputButton.vue
+├── element-variables.scss
+├── locales
+│   ├── en.json
+│   └── ja.json
+├── main.ts
+├── router
+│   └── index.ts
+├── shims-tsx.d.ts
+├── shims-vue.d.ts
+├── store
+│   ├── Auth.ts
+│   ├── Config.ts
+│   ├── Ky.ts
+│   ├── Recommend.ts
+│   ├── SASToken.ts
+│   └── index.ts
+├── type.d.ts
+├── util
+│   ├── ApiUtility.ts
+│   ├── Common.ts
+│   ├── CommonKYSheet.ts
+│   ├── CommonPassword.ts
+│   ├── CommonSASToken.ts
+│   ├── Const.ts
+│   └── pdfMake
+│       ├── PDFDisasterCase.ts
+│       ├── PDFKySheet.ts
+│       ├── PDFMakeBase.ts
+│       └── PDFSafetyInstruction.ts
+└── views
+    ├── Detail.vue
+    ├── Error.vue
+    ├── Initial.vue
+    ├── Recommend.vue
+    ├── Top.vue
+    ├── cs
+    │   ├── LogData.vue
+    │   └── ManualSetting.vue
+    ├── ds
+    │   └── Index.vue
+    ├── inquiry
+    │   ├── Form.vue
+    │   ├── Manual.vue
+    │   └── News.vue
+    ├── list
+    │   ├── KYSheets.vue
+    │   ├── SafetyInstruct.vue
+    │   ├── SafetyInstructPDFPrint.vue
+    │   └── SavedDisaster.vue
+    ├── setting
+    │   ├── AllBulkSettings.vue
+    │   ├── DictionaryBulk.vue
+    │   ├── DisasterBulk.vue
+    │   ├── DisasterEdit.vue
+    │   ├── DocumentConfig.vue
+    │   ├── StructBulk.vue
+    │   ├── ThumbnailBulk.vue
+    │   ├── UserUIConfig.vue
+    │   ├── UserUIConfigInstruction.vue
+    │   └── UserUIConfigKySheet.vue
+    └── user
+        └── Management.vue
+
+23 directories, 120 files
 ```

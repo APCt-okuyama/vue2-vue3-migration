@@ -21,7 +21,28 @@
 </template>
 
 <script lang="ts">
-import { Options as Component, Prop, Vue } from 'vue-property-decorator';
+// import { Options as Component, Prop, Vue } from 'vue-property-decorator';
+// import {
+//   Check,
+//   Delete,
+//   Edit,
+//   Message,
+//   Search,
+//   Star,
+// } from '@element-plus/icons-vue'
+// @Component({})
+// //@Options({})
+// export default class HelloWorld extends Vue {
+//   @Prop() private msg!: string;
+//   Check = Check;
+//   Delete = Delete;
+//   Edit = Edit;
+//   Message = Message;
+//   Search = Search;
+//   Star = Star;
+// }
+import { defineComponent, toRefs, ref } from "vue";
+import { Options as Component, Prop, Vue } from "vue-property-decorator";
 import {
   Check,
   Delete,
@@ -29,18 +50,20 @@ import {
   Message,
   Search,
   Star,
-} from '@element-plus/icons-vue'
-@Component({})
-//@Options({})
-export default class HelloWorld extends Vue {
-  @Prop() private msg!: string;
-  Check = Check;
-  Delete = Delete;
-  Edit = Edit;
-  Message = Message;
-  Search = Search;
-  Star = Star;
-}
+} from "@element-plus/icons-vue";
+export default defineComponent({
+  props: { msg: { type: String } },
+  setup(props, ctx) {
+    // const { msg } = toRefs(props);
+    // const Check = ref(Check);
+    // const Delete = ref(Delete);
+    // const Edit = ref(Edit);
+    // const Message = ref(Message);
+    // const Search = ref(Search);
+    // const Star = ref(Star);
+    return { Check, Delete, Edit, Message, Search, Star };
+  },
+});
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

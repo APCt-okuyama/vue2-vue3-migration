@@ -2,22 +2,24 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <p>
-      クラスコンポーネントの利用のサンプル これってVue3？
+      クラスコンポーネントの利用のサンプル これってほんとにVue3？
     </p>
   </div>
 </template>
 
 <script lang="ts">
 //import { Prop } from 'vue-property-decorator';
-import { Options, Vue } from 'vue-class-component';
-@Options({
-  props: {
-    msg: String
-  }
-})
+// import { Options, Vue } from 'vue-class-component';
+import { Prop, Options, Vue } from "vue-property-decorator";
+// @Options({
+//   props: {
+//     msg: String
+//   }
+// })
+@Options({})
 export default class HelloWorld extends Vue {
-  //@Prop() private msg!: string;
-  private msg!: string;
+  @Prop() private msg!: string;
+  //private msg!: string;
 }
 </script>
 

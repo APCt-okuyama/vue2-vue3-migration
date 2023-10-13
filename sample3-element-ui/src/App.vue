@@ -6,15 +6,28 @@
 </template>
 
 <script lang="ts">
-import { Options as Component, Vue } from 'vue-property-decorator';
-import HelloWorld from './components/HelloWorld.vue';
+// import { Options as Component, Vue } from 'vue-property-decorator';
+// import HelloWorld from './components/HelloWorld.vue';
 
-@Component({
+// @Component({
+//   components: {
+//     HelloWorld,
+//   },
+// })
+// export default class App extends Vue { }
+// import { defineComponent } from "@vue/composition-api";
+import { defineComponent } from 'vue';
+import { Options as Component, Vue } from "vue-property-decorator";
+import HelloWorld from "./components/HelloWorld.vue";
+export default defineComponent({
   components: {
     HelloWorld,
   },
-})
-export default class App extends Vue { }
+  props: {},
+  setup(_props, ctx) {
+    return {};
+  },
+});
 </script>
 
 <style>
