@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import VueRouter, { RouteConfig } from 'vue-router'
+import {createRouter, createWebHistory, RouteRecordRaw as RouteConfig } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
-Vue.use(VueRouter)
+//Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
   {
@@ -20,9 +20,10 @@ const routes: Array<RouteConfig> = [
   }
 ]
 
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
+//const router = new VueRouter({
+const router = createRouter({  
+  //mode: 'history',
+  history: createWebHistory(process.env.BASE_URL),
   routes
 })
 
