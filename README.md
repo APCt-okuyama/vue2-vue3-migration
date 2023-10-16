@@ -146,12 +146,12 @@ Breaking Changes
 ★　 "vue-class-component": "^7.2.3",※どうする。。。
     "vue-i18n": "^8.28.2",　※9.5.0があります
 ★　 "vue-property-decorator": "^8.4.2",※どうする。。。
-★   "vue-router": "^3.2.0",　※4.2.5へ上げる
-    "vue2-touch-events": "^3.2.2", ※vue3-touch-eventsに変更する
-    "vuedraggable": "^2.24.3",※vue3のものに変更する
-★    "vuex": "^3.4.0",※vue3のものに変更する pinia
-    "vuex-persistedstate": "^4.0.0-beta.3",※vuex-persistedstate　3.x.xブランチに
-    "vuex-smart-module": "^0.4.6"　※0.6.2 がsupport vue3となっている
+★★  "vue-router": "^3.2.0",　※4.2.5へ上げる
+★★ "vue2-touch-events": "^3.2.2", ※vue3-touch-eventsに変更する
+★★ "vuedraggable": "^2.24.3",※vue3のものに変更する
+★★ "vuex": "^3.4.0",※vue3のものに変更する pinia
+★★ "vuex-persistedstate": "^4.0.0-beta.3",※vuex-persistedstate　3.x.xブランチに
+★★ "vuex-smart-module": "^0.4.6"　※0.6.2 がsupport vue3となっている
   },
   "devDependencies": {
     "@types/fabric": "^5.3.3",
@@ -178,7 +178,7 @@ Breaking Changes
     "node-sass": "^8.0.0",
     "prettier": "^1.19.1",
     "sass-loader": "^10.2.1",
-    "typescript": "~3.9.3",※★★★これも上げる？
+    "typescript": "~3.9.3",※★★★これも上げる？ ^5.2.2
     "vue-template-compiler": "^2.6.11"
   },
   "gitHooks": {
