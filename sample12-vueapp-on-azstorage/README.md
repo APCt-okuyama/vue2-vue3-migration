@@ -59,3 +59,41 @@ this is index.
 $ curl https://sample12vue3app.z11.web.core.windows.net/aaa
 this is index.
 ```
+
+# Run E2E test by Autify
+
+シナリオIDと実行環境 (capabilities) を指定して、テストを実行する
+```bash
+export AUTIFY_PROJECT_ID=8836
+export AUTIFY_SCENARIO_ID=236783
+autify web api execute-scenarios --project-id $AUTIFY_PROJECT_ID --execute-scenarios-request '{ 
+  "scenarios": [{"id": '"$AUTIFY_SCENARIO_ID"'}], 
+  "capabilities": [{"os": "Linux", "browser": "Chrome"}] 
+}'
+{
+  "result_id": 2669679
+}
+
+autify web api execute-scenarios --project-id $AUTIFY_PROJECT_ID --execute-scenarios-request '{ 
+  "scenarios": [{"id": '"$AUTIFY_SCENARIO_ID"'}], 
+  "capabilities": [{"os": "Windows Server", "browser": "Edge"}] 
+}'
+{
+  "result_id": 2669679
+}
+```
+
+結果を取得して、ステータスを確認する
+```bash
+autify web api describe-result --project-id $AUTIFY_PROJECT_ID --result-id 2669679 | jq '.status' 
+"failed"
+```
+
+
+実行環境 (capabilities)は以下のコマンドで確認可能 
+※おそらくwindows serverとLinuxのみ有効
+```bash
+autify web api list-capabilities --project-id $AUTIFY_PROJECT_ID 
+autify web api list-capabilities --project-id $AUTIFY_PROJECT_ID | jq -r '.[].os'
+autify web api list-capabilities --project-id $AUTIFY_PROJECT_ID | jq -r '.[].browser'
+```
