@@ -17,8 +17,6 @@ $ az version
 
 作成
 ```bash
-RG_NAME=sample12-vue3app
-LOCATION=japaneast
 az group create --name $RG_NAME --location $LOCATION
 ```
 
@@ -31,7 +29,6 @@ az group delete --name $RG_NAME
 
 ## azure storage の作成
 ```bash
-STORAGE_ACCOUNT_NAME=sample12vue3app
 az storage account create --name $STORAGE_ACCOUNT_NAME --resource-group $RG_NAME --location $LOCATION --sku Standard_LRS --kind StorageV2 --https-only true --allow-blob-public-access false
 ```
 
@@ -64,8 +61,6 @@ this is index.
 
 シナリオIDと実行環境 (capabilities) を指定して、テストを実行する
 ```bash
-export AUTIFY_PROJECT_ID=8836
-export AUTIFY_SCENARIO_ID=236783
 autify web api execute-scenarios --project-id $AUTIFY_PROJECT_ID --execute-scenarios-request '{ 
   "scenarios": [{"id": '"$AUTIFY_SCENARIO_ID"'}], 
   "capabilities": [{"os": "Linux", "browser": "Chrome"}] 
@@ -96,4 +91,28 @@ autify web api describe-result --project-id $AUTIFY_PROJECT_ID --result-id 26696
 autify web api list-capabilities --project-id $AUTIFY_PROJECT_ID 
 autify web api list-capabilities --project-id $AUTIFY_PROJECT_ID | jq -r '.[].os'
 autify web api list-capabilities --project-id $AUTIFY_PROJECT_ID | jq -r '.[].browser'
+```
+
+# direnv
+インストール
+```bash
+sudo apt-get update
+sudo apt-get -y install direnv
+
+# .bashrcに追加
+cat ~/.bashrc | grep direnv 
+eval "$(direnv hook bash)"
+```
+
+使い方
+```bash
+echo ${FOO-定義されてないね}
+
+echo export FOO=foo > .envrc
+
+# .envrcの内容を有効にする
+direnv allow .
+
+echo ${FOO-定義されてないね}
+foo #定義されていることが確認できる
 ```
