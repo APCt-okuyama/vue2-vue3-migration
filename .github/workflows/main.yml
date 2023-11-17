@@ -1,0 +1,31 @@
+name: (Dev01) Build and deploy a container to an Azure Web App
+
+on:
+  workflow_dispatch:
+    inputs:
+      client-branch-name:
+        description: 'Front branch to checkout'
+        required: true
+      backend-branch-name:
+        description: 'Backend branch to checkout'
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: (debug) Print envrioment
+        run: |
+          echo "server-branch-name: ${{ github.event.inputs.server-branch-name }}"
+          echo "client-branch-name: ${{ github.event.inputs.client-branch-name }}"
+          
+      # - name: Checkout specta-kytool (actions/checkout@v3)
+      #   uses: actions/checkout@v3      
+      #   with:
+      #     # submodules: true ブランチを指定するように変更
+      #     token: ${{ secrets.ACCESS_TOKEN }}
+
+
