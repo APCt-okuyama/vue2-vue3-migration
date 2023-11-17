@@ -1,14 +1,14 @@
-name: (Dev01) Build and deploy a container to an Azure Web App
+name: 01 GitHub Actionの確認用のworkflow
 
 on:
   workflow_dispatch:
     inputs:
-      client-branch-name:
-        description: 'Front branch to checkout'
+      branch-name:
+        description: 'branch name (e.g. v2.7)'
         required: true
-      backend-branch-name:
-        description: 'Backend branch to checkout'
-        required: true
+      # frontend-branch-name:
+      #   description: 'Front branch name　(e.g. v2.7)'
+      #   required: true
 
 permissions:
   contents: read
@@ -19,8 +19,9 @@ jobs:
     steps:
       - name: (debug) Print envrioment
         run: |
-          echo "server-branch-name: ${{ github.event.inputs.server-branch-name }}"
-          echo "client-branch-name: ${{ github.event.inputs.client-branch-name }}"
+          echo "branch-name: ${{ github.event.inputs.branch-name }}"
+          # echo "server-branch-name: ${{ github.event.inputs.backend-branch-name }}"
+          # echo "client-branch-name: ${{ github.event.inputs.frontend-branch-name }}"
           
       # - name: Checkout specta-kytool (actions/checkout@v3)
       #   uses: actions/checkout@v3      
@@ -28,4 +29,30 @@ jobs:
       #     # submodules: true ブランチを指定するように変更
       #     token: ${{ secrets.ACCESS_TOKEN }}
 
+      - name: Checkout specta-kytool (actions/checkout@v3)
+        uses: actions/checkout@v3
+        with:
+          repository: 'ap-communications/specta-kytool'
+          # ref: 'try/change-deploy-trigger'
+          ref: 'develop-dev01'          
+          token: ${{ secrets.ACCESS_TOKEN }}
+
+      - name: Checkout specta-kytool-client (actions/checkout@v3)
+        uses: actions/checkout@v3
+        with:
+          repository: 'ap-communications/specta-kytool-client'
+          ref: ${{ github.event.inputs.branch-name }}
+          token: ${{ secrets.ACCESS_TOKEN }}
+          path: 'specta-kytool-client'
+
+      - name: Checkout specta-kytool-server (actions/checkout@v3)
+        uses: actions/checkout@v3
+        with:
+          repository: 'ap-communications/specta-kytool-server'
+          ref: ${{ github.event.inputs.branch-name }}
+          token: ${{ secrets.ACCESS_TOKEN }}
+          path: 'specta-kytool-server'
+
+      - name: (debug) Print envrioment
+        run: tree -L 2
 
