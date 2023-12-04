@@ -14,7 +14,7 @@ VITE_DROP_DEBUGGER=true
 VITE_DROP_CONSOLE=true
 
 # 是否sourcemap
-VITE_SOURCEMAP=false
+VITE_SOURCEMAP=true
 
 # 输出路径
 VITE_OUT_DIR=dist-pro

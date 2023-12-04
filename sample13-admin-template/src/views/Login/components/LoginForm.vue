@@ -205,6 +205,7 @@ watch(
 
 // 登录
 const signIn = async () => {
+  console.log('signIn started...')
   const formRef = await getElFormExpose()
   await formRef?.validate(async (isValid) => {
     if (isValid) {
@@ -237,6 +238,7 @@ const signIn = async () => {
 
 // 获取角色信息
 const getRole = async () => {
+  console.log('getRole started...')
   const formData = await getFormData<UserType>()
   const params = {
     roleName: formData.username

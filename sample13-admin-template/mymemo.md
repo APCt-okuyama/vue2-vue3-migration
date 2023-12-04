@@ -1,18 +1,3 @@
-# azure blobにデプロイ
-
-```bash
-pnpm install
-pnpm run dev
-pnpm run build:pro -> dist-proができあがる
-```
-
-
-```bash
-az storage blob upload-batch -s ./dist-pro -d '$web' --account-name $STORAGE_ACCOUNT_NAME --overwrite
-az storage account show -n $STORAGE_ACCOUNT_NAME -g $RG_NAME --query "primaryEndpoints.web" --output tsv
-```
-
-
 
 # ログインの処理を確認する
 
@@ -69,3 +54,22 @@ router.beforeEach(async (to, from, next) => {
 ```javascript
 
 ```
+
+
+# azure blobにデプロイ
+
+```bash
+pnpm install
+# ローカルで確認
+pnpm run dev
+# デプロイ用のファイルを作成
+pnpm run build:pro -> dist-proができあがる
+```
+
+
+```bash
+az storage blob upload-batch -s ./dist-pro -d '$web' --account-name $STORAGE_ACCOUNT_NAME --overwrite
+az storage account show -n $STORAGE_ACCOUNT_NAME -g $RG_NAME --query "primaryEndpoints.web" --output tsv
+```
+
+
