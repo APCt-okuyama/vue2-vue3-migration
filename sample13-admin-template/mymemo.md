@@ -58,7 +58,11 @@ router.beforeEach(async (to, from, next) => {
 
 # azure blobにデプロイ
 
+
 ```bash
+# memoryのエラーが出たら
+export NODE_OPTIONS=--max_old_space_size=4096
+
 pnpm install
 # ローカルで確認
 pnpm run dev

@@ -1,8 +1,5 @@
 # vue2 から vue3 へのマイグレーション調査
 
-対象は vue ファイル数:73 (34694 line)
-利用ライブラリ数: 22 + 26
-
 ## 参照情報
 
 [Vue 3 以降ガイド(公式)](https://v3-migration.vuejs.org/ja/)
@@ -446,3 +443,32 @@ src
 
 23 directories, 120 files
 ```
+# vite, typescriptでの sampleの作成
+```
+npm init vite@latest sampleNN-xxxxxxx -- --template vue-ts
+cd sampleNN-xxxxxxx
+npm install
+npm run dev
+```
+
+az blob storage へのアップロードして確認
+```
+export RG_NAME=sample12-vue3app-okym
+export STORAGE_ACCOUNT_NAME=sample12vue3app
+# 以下のコマンドでアップロード
+az storage blob upload-batch -s ./dist -d '$web' --account-name $STORAGE_ACCOUNT_NAME --overwrite
+# 以下のURLで確認
+az storage account show -n $STORAGE_ACCOUNT_NAME -g $RG_NAME --query "primaryEndpoints.web" --output tsv
+```
+# blogを書いておく。
+```
+	Autifyブログ（第８回の準備）ローカルリプレイとか、テストシナリオの編集容易性
+	Task 6402: 技術ブログ作成・投稿（第８回：2023年12月18日）
+```
+
+- ローカルリプレイ
+ 追加したい箇所までの操作を自動で進める機能　※実際に操作しているところの動画をブログにしてみるかな。
+- テストシナリオの編集容易性
+
+
+
