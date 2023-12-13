@@ -160,6 +160,8 @@ export default {
     exampleEdit: 'Example page - edit',
     exampleDetail: 'Example page - detail',
     errorPage: 'Error page',
+    myNewPage1: '追加機能01',
+    myNewPage2: '追加機能02',
     authorization: 'Authorization',
     user: 'User management',
     role: 'Role management',

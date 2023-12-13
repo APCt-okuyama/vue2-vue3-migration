@@ -10,3 +10,5 @@ windwos + ALT + r
 ## 動画mp4 -> gifに変換
 https://cloudconvert.com/
 
+https://ezgif.com/video-to-gif
+３０秒以内の動画のみ変換可能
